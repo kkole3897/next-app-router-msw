@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import ApiMockProvider from './api-mock-provider';
+// import ApiMockProvider from './api-mock-provider';
+import BrowserApiMockProvider from './browser-api-mock-provider';
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -14,9 +15,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ApiMockProvider>
+        <BrowserApiMockProvider>
           {children}
-        </ApiMockProvider>
+        </BrowserApiMockProvider>
       </body>
     </html>
   );

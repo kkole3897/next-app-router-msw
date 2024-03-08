@@ -1,19 +1,15 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { requestHello } from '@/api';
 
 export default function Hello() {
   const [text, setText] = useState('');
 
   useEffect(() => {
-    const getText = async () => {
-      const response = await fetch('http://api.server.com/hello');
-      const { data: { text } } = await response.json();
-
+    requestHello().then(({ data: { text }}) => {
       setText(text);
-    }
-
-    getText();
+    });
   }, []);
 
   return <div>{text}</div>;

@@ -1,5 +1,5 @@
 export async function requestHello(): Promise<{ data: { text: string } }> {
-  const response = await fetch('http://localhost:8080/api', {
+  const response = await fetch('http://localhost:8080/hello', {
     headers: {
       'Content-Type': 'application/json',
     },
