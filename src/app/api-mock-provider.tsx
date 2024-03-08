@@ -1,30 +1,27 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { setup } from '@/mocks';
+import { useState, useEffect} from 'react';
 
 const isMockEnabled = process.env.NEXT_PUBLIC_API_MOCKING === 'enabled';
 
 export default function ApiMockProvider({ children }: { children: React.ReactNode }) {
-  const [isMockReady, setIsMockReady] = useState(() => !isMockEnabled);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    async function init() {
+    const init = async () => {
       if (isMockEnabled) {
-        console.log('msw init start');
-        setup().then(() => {
-          setIsMockReady(true);
-          console.log('msw init end');
-        })
+        const { setup } = await import('@/mocks/index');
+        await setup();
+        setIsLoaded(true);
       }
     }
 
-    if (!isMockReady) {
+    if (!isLoaded) {
       init();
     }
-  }, [isMockReady]);
+  }, [isLoaded]);
 
-  if (!isMockReady) {
+  if (!isLoaded) {
     return null;
   }
 
